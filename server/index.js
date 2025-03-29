@@ -11,9 +11,9 @@
 
 
 const http = require('http');
+const fs = require('fs');
+const { callbackify } = require('util');
 const myServer = http.createServer((req, res) => {
-    res.end("server practice")
-
-}
-);
-myServer.listen(3000, () => console.log('port started at 3000'))
+fs.appendFile("nik.txt","hello form nikhil \n",(err,data)=>{res.end('hello world')})
+});
+myServer.listen(3000,console.log("server started at port 3000"))
