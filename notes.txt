@@ -9,7 +9,9 @@ Secure-
 
 HTTP METHODS 
 GET - when you want to get some data from the server. 
-POST - 
-PUT - 
-PATCH - 
-DELETE - 
+POST - when you want to send  and mutate some data in the server.
+PUT - to upload a picture on the server. 
+PATCH - if i want to change existing data on the server for ex -: chainging user name on facebook. 
+DELETE - to delete data for the server.
+
+~EXPRESS FRAMEWORK. 

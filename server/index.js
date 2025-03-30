@@ -1,3 +1,4 @@
+//!without express framework.
 // const { log } = require('console');
 // const http = require('http');
 // const fs = require('fs');
@@ -10,10 +11,19 @@
 // myServer.listen(8000, () => console.log('Server Started At Port 8000'));
 
 
-const http = require('http');
-const fs = require('fs');
-const { callbackify } = require('util');
-const myServer = http.createServer((req, res) => {
-fs.appendFile("nik.txt","hello form nikhil \n",(err,data)=>{res.end('hello world')})
-});
-myServer.listen(3000,console.log("server started at port 3000"))
+//!using express.
+const express = require('express')
+
+const app = express();
+app.get("/", (req, res) => {
+    return res.send('Hello from the Home page');
+})
+
+app.get("/about", (req, res) => {
+    return res.send("Hello from the about page")
+})
+
+
+
+app.listen(3000, console.log("server started at port 3000"))
+
