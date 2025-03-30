@@ -1,1 +1,15 @@
 here i will take notes for node. 
+url = Uniform Resource Locator.
+Protocol - https:// (tells browsers how to communitcate)
+Domain- User Friendly name of IP Address of my server.
+Hypertext-  
+Transfer - 
+Protocol-
+Secure- 
+
+HTTP METHODS 
+GET - when you want to get some data from the server. 
+POST - 
+PUT - 
+PATCH - 
+DELETE - 
