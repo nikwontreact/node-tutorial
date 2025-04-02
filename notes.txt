@@ -15,3 +15,13 @@ PATCH - if i want to change existing data on the server for ex -: chainging user
 DELETE - to delete data for the server.
 
 ~EXPRESS FRAMEWORK. 
+- In express you don't need to http or my server 
+- Versions 
+   ex: 4.21.2
+      4 - is major or breaking upate must not update will break your code.
+      21 - recommended must update , security related updates.
+      2 - minor updates may update wont effect much.
+- Symbols used in package.json before "version" keyword. 
+   ^version - npm will update all the recommended and minor updates automatically. 
+   ~version - npm will only update minor bug fixes automatically; And won't update recommended update.
+   
