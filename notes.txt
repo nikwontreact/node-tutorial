@@ -24,4 +24,11 @@ DELETE - to delete data for the server.
 - Symbols used in package.json before "version" keyword. 
    ^version - npm will update all the recommended and minor updates automatically. 
    ~version - npm will only update minor bug fixes automatically; And won't update recommended update.
-   
+
+~ Restfull API/ Rest API.
+- rules 
+  1.Server and Client Architecture (independent).
+  2.Always respect all http methods. 
+     GET, POST, PUT, PATCH, DELETE. 
+     
+
