@@ -2,6 +2,12 @@ const express = require("express");
 const users = require("./MOCK_DATA.json")
 const app = express();
 const PORT = 8000;
+const fs = require('fs');
+const { json } = require("stream/consumers");
+
+//! Middleware - plugin
+//~ whenever any form data comes it will put it in body ,it takes data and creates that data into JS object , and put that obj into body. 
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/api/users', (req, res) => {
     return res.json(users);
@@ -16,8 +22,7 @@ app.get('/users', (req, res) => {
     res.send(html);
 });
 
-app
-    .route('/app/user/:id')
+app.route('/app/user/:id')
     .get((req, res) => {
         const id = Number(req.params.id);
         const user = users.find((user) => user.id === id);
@@ -35,13 +40,13 @@ app
 
 app.post('/api/users', (req, res) => {
     //TODO : Create new User
-    return res.json({ status: "pending" });
+    const body = req.body;
+    users.push({ ...body, id: users.length + 1 });
+    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err, data) => {
+        return res.json({ status: "success", id: users.length + 1 });
+    })
 });
 
-app.patch('/api/users/:id', (req, res) => {
-    //TODO : Edit user the user with id 
-    return res.json({ status: "pending" });
-})
 
-app.delete
+
 app.listen(PORT, () => console.log(`Server Started at port no 8000`));
