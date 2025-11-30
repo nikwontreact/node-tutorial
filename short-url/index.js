@@ -1,31 +1,46 @@
+//!imports
 const express = require("express");
-const PORT = 8001;
-const app = express();
 const { connectToMongoDB } = require("./connect");
-const urlRoute = require("./routes/url");
 const URL = require("./models/url");
-connectToMongoDB("mongodb://127.0.0.1:27017/short-url").then(
-  console.log("mongodb connected")
-);
-app.use(express.json());
+const path = require("path");
+
+const staticRoute = require("./routes/staticRouter");
+const urlRoute = require("./routes/url");
+
+//!Setting up express
+const app = express();
+const PORT = 8001;
+
+//!connecting mongodb
+connectToMongoDB("mongodb://localhost:27017/short-url")
+  .then(console.log("mongodb connected"))
+  .catch((err) => console.log("mongodb error", err));
+
+//!setting template engine and then config path
+app.set("view engine", "ejs");
+app.set("views", path.resolve("./views"));
+
+//!Middlewares
+
+//!To support parsing diff types of data
+app.use(express.json()); //* to parse json data
+app.use(express.urlencoded({ extended: false })); //* to parse urlencoded data
+
+//!Routes
 app.use("/url", urlRoute);
-app.get("/:shortId", async (req, res) => {
+app.use("/", staticRoute);
+
+app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
   const entry = await URL.findOneAndUpdate(
-    {
-      shortId,
-    },
-    {
-      $push: {
-        visitHistory: {
-          timestamp: Date.now(),
-        },
-      },
-    }
+    { shortId },
+    { $push: { visitHistory: { timestamp: Date.now() } } }
   );
-
-  res.redirect(entry.redirectUrl);
+  if (!entry) return res.status(404).send("Short URL not found");
+  return res.redirect(entry.redirectURL);
 });
+
+//!Port configuiration
 app.listen(PORT, () => {
-  console.log("server started at port", PORT);
+  console.log(`server started at Port ${PORT}`);
 });
